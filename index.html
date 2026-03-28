@@ -305,5 +305,80 @@
     }, 11000);
 </script>
 
+<div id="stats-container" style="text-align: center; padding: 20px; background: #eee; font-size: 0.85rem; color: #666;">
+    <p>📊 Impacto Financiero: <span id="visit-count" style="font-weight: bold; color: var(--primary);">Cargando...</span> visualizaciones reales</p>
+    <button onclick="excludeMe()" style="background: none; border: 1px solid #ccc; font-size: 0.7rem; cursor: pointer; border-radius: 4px; padding: 2px 5px;">Excluir mis visitas (Modo Admin)</button>
+</div>
+
+<script>
+    // Usamos el servicio gratuito de CountAPI
+    const namespace = "mis-finanzas-roberto-2026"; // Cambia esto por algo único
+    const key = "principal";
+
+    function updateCounter() {
+        // Verificar si el usuario pidió ser excluido (LocalStorage)
+        if (localStorage.getItem("exclude_visitor") === "true") {
+            document.getElementById('visit-count').innerText = "Modo Admin (No contando)";
+            return;
+        }
+
+        // Llamada a la API para incrementar y obtener el conteo
+        fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+            .then(res => res.json())
+            .then(res => {
+                document.getElementById('visit-count').innerText = res.value.toLocaleString();
+            })
+            .catch(() => {
+                document.getElementById('visit-count').innerText = "Habilitado";
+            });
+    }
+
+    // Función para que TÚ no cuentes cuando entres a revisar
+    function excludeMe() {
+        localStorage.setItem("exclude_visitor", "true");
+        alert("Tus visitas ya no se contarán en este navegador. ¡Listo!");
+        location.reload();
+    }
+
+    updateCounter();
+
+    
+</script>
+
+<a href="https://wa.me/5219211018961?text=Hola,%20tengo%20una%20duda%20sobre%20las%20tarjetas%20o%20préstamos%20de%20tu%20página" 
+   class="whatsapp-float" 
+   target="_blank" 
+   rel="noopener noreferrer">
+    <svg width="30" height="30" fill="white" viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.591-3.849-1.591-5.946 0-6.556 5.332-11.891 11.893-11.891 3.181 0 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.402 0 6.556-5.332 11.891-11.893 11.891-2.01 0-3.987-.51-5.742-1.47l-6.044 1.59zm5.835-3.133c1.544.913 3.101 1.387 4.627 1.387 5.178 0 9.393-4.215 9.393-9.391 0-2.506-.976-4.861-2.749-6.633-1.771-1.772-4.122-2.748-6.644-2.748-5.178 0-9.394 4.215-9.394 9.391 0 1.834.532 3.633 1.54 5.203l-1.011 3.693 3.738-.902z"/>
+        <path d="M17.472 14.382c-.301-.149-1.785-.881-2.057-.981-.271-.1-.47-.149-.669.149-.198.3-.765.981-.937 1.18-.171.199-.343.224-.644.075-.301-.15-1.27-.468-2.42-1.494-.894-.797-1.498-1.782-1.674-2.081-.176-.3-.019-.462.131-.61.135-.134.301-.35.451-.524.151-.174.201-.299.301-.498.101-.199.05-.374-.025-.524-.075-.15-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.299-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.785-.73 2.034-1.436.25-.706.25-1.312.175-1.437-.075-.124-.275-.199-.576-.349z"/>
+    </svg>
+</a>
+
+<style>
+    .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 90px; /* Un poco más arriba para no tapar el contador */
+        right: 20px;
+        background-color: #25d366;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+    .whatsapp-float:hover {
+        transform: scale(1.1);
+        background-color: #128c7e;
+    }
+</style>
+
 </body>
 </html>
