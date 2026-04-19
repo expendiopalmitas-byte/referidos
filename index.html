@@ -311,9 +311,9 @@
 </div>
 
 <script>
-    // Usamos el servicio gratuito de CountAPI
-    const namespace = "mis-finanzas-roberto-2026"; // Cambia esto por algo único
-    const key = "principal";
+    // Usamos el servicio estable de CounterAPI
+    const namespace = "roberto_finanzas_2026"; 
+    const key = "visitas";
 
     function updateCounter() {
         // Verificar si el usuario pidió ser excluido (LocalStorage)
@@ -322,14 +322,15 @@
             return;
         }
 
-        // Llamada a la API para incrementar y obtener el conteo
-        fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+        // Llamada a la nueva API para incrementar y obtener el conteo
+        fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`)
             .then(res => res.json())
             .then(res => {
-                document.getElementById('visit-count').innerText = res.value.toLocaleString();
+                // La API nueva devuelve el valor en "count"
+                document.getElementById('visit-count').innerText = res.count.toLocaleString();
             })
             .catch(() => {
-                document.getElementById('visit-count').innerText = "Habilitado";
+                document.getElementById('visit-count').innerText = "Activo";
             });
     }
 
@@ -341,10 +342,9 @@
     }
 
     updateCounter();
-
-    
 </script>
 
+    
 <a href="https://wa.me/5219211018961?text=Hola,%20tengo%20una%20duda%20sobre%20las%20tarjetas%20o%20préstamos%20de%20tu%20página" 
    class="whatsapp-float" 
    target="_blank" 
